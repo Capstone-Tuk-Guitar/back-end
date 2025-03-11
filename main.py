@@ -7,10 +7,12 @@ import shutil
 import requests
 from dotenv import load_dotenv
 
+from compare_midi import compare_midi_files
+
 load_dotenv()
 app = FastAPI()
 
-KLANGO_API_URL = "https://api.klang.io/transcription"
+KLANGIO_API_URL = "https://api.klang.io/transcription"
 API_KEY = os.getenv("API_KEY")
 UPLOAD_FOLDER = "uploads/"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -100,7 +102,7 @@ async def transcription(
         }
 
         response = requests.post(
-            KLANGO_API_URL, params=params, files=files, data=data, headers=headers
+            KLANGIO_API_URL, params=params, files=files, data=data, headers=headers
         )
 
         if not response.ok:
