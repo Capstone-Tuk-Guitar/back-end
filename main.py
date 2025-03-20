@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from function.convert import convert_router  # convert.py의 router 불러오기
-from function.compare import compare_router  # compare.py의 router 불러오기
+from function.convert import convert_router
+from function.compare import compare_router
+from function.tuner import tuner_app
 
 app = FastAPI()
 
@@ -15,3 +16,4 @@ app.add_middleware(
 
 app.include_router(convert_router)
 app.include_router(compare_router)
+app.include_router(tuner_app)
