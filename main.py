@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from function.convert import convert_router
 from function.compare import compare_router
 from function.tuner import tuner_router
-from function.tuner import Tuner
+
 
 app = FastAPI()
 
