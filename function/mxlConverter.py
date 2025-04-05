@@ -1,16 +1,19 @@
 from fastapi import APIRouter, UploadFile, File
 from fastapi.responses import FileResponse
-from starlette.responses import Response
 from starlette.background import BackgroundTask
 from pathlib import Path
 import tempfile
 import subprocess
 import os
+from dotenv import load_dotenv
+
+# 환경 변수 로드
+load_dotenv()
 
 mxl_router = APIRouter()
 
 # MuseScore 실행 경로
-MUSESCORE_PATH = r"D:\MuseScore 4\bin\MuseScore4.exe"
+MUSESCORE_PATH = os.getenv("MUSESCORE_PATH")
 
 @mxl_router.post("/mxl-converter/")
 async def mxl_converter(file: UploadFile = File(...)):
