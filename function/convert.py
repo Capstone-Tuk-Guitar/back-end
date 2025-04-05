@@ -10,7 +10,7 @@ load_dotenv()
 
 convert_router = APIRouter()
 
-KLANGO_API_URL = "https://api.klang.io/transcription"
+KLANGIO_API_URL = "https://api.klang.io/transcription"
 API_KEY = os.getenv("API_KEY")
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
@@ -79,7 +79,7 @@ async def transcription(
         }
 
         response = requests.post(
-            KLANGO_API_URL, params=params, files=files, data=data, headers=headers
+            KLANGIO_API_URL, params=params, files=files, data=data, headers=headers
         )
 
         if not response.ok:
