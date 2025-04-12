@@ -3,8 +3,8 @@ from fastapi.responses import FileResponse
 import os
 import tempfile
 import subprocess
-import zipfile
 import xml.etree.ElementTree as ET
+from music21 import converter
 from dotenv import load_dotenv
 
 # 환경 변수 로드
@@ -22,7 +22,6 @@ async def convert_to_mxl(file: UploadFile = File(...), background_tasks: Backgro
         with tempfile.TemporaryDirectory() as tmpdir:
             midi_path = os.path.join(tmpdir, file.filename)             # 업로드된 MIDI 파일 경로
             musicxml_path = os.path.join(tmpdir, "output.musicxml")     # 생성될 MusicXML 파일 경로
-            mxl_path = os.path.join(tmpdir, "output.mxl")               # 최종 MXL 파일 경로 (현재 사용 안함)
             container_dir = os.path.join(tmpdir, "META-INF")            # MXL 메타데이터 디렉토리
             os.makedirs(container_dir, exist_ok=True)
 
