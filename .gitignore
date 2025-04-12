@@ -25,6 +25,7 @@ gen
 # Byte-compiled / optimized / DLL files
 __pycache__/
 function/__pycache__/
+tuner_audio/__pycache__/
 *.py[cod]
 *$py.class
 
