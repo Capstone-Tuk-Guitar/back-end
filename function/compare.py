@@ -4,15 +4,6 @@ from music21 import converter, interval, chord, pitch
 
 compare_router = APIRouter()
 
-def is_pitch_similar(pitch1, pitch2, tolerance=1):
-    """두 음표 간의 피치(Pitch)가 특정 오차 범위 내에서 유사한지 확인"""
-    try:
-        p1 = pitch.Pitch(pitch1).midi  # MIDI 번호 변환 (예: C4 -> 60)
-        p2 = pitch.Pitch(pitch2).midi
-        return abs(p1 - p2) <= tolerance
-    except:
-        return False
-
 def normalize_pitches(notes, tolerance=1):
     """음표 리스트를 MIDI 값으로 변환하여 오차 적용"""
     normalized = []
@@ -24,7 +15,7 @@ def normalize_pitches(notes, tolerance=1):
             normalized.append(n)
     return normalized
 
-def extract_notes(midi_path, tolerance=1):
+def extract_notes(midi_path, tolerance=2):
     """MIDI 파일에서 음표(Pitch) 목록을 추출 (오차 적용)"""
     midi = converter.parse(midi_path)
     notes = []
@@ -33,18 +24,31 @@ def extract_notes(midi_path, tolerance=1):
             notes.append(str(element.pitch))
     return normalize_pitches(notes, tolerance)
 
-def extract_rhythms(midi_path, tolerance=0.2):
+def extract_rhythms(midi_path, tolerance=0.3):
     """MIDI 파일에서 리듬(Duration) 목록을 추출 (오차 적용)"""
     midi = converter.parse(midi_path)
     rhythms = [n.duration.quarterLength for n in midi.flat.notes]
     return [round(rhythm / tolerance) * tolerance for rhythm in rhythms]
 
-def extract_intervals(midi_path, tolerance=2):
+def extract_intervals(midi_path, tolerance=3):
     """MIDI 파일에서 멜로디 패턴(Interval) 목록을 추출 (오차 적용)"""
     midi = converter.parse(midi_path)
     notes = [n.pitch for n in midi.flat.notes if n.isNote]
-    intervals = [interval.Interval(notes[i], notes[i + 1]).name for i in range(len(notes) - 1)]
-    return intervals
+
+    # MIDI 간격으로 interval 추출 (예: C4->D4 = 2)
+    raw_intervals = []
+    for i in range(len(notes) - 1):
+        try:
+            iv = interval.Interval(notes[i], notes[i + 1])
+            raw_intervals.append(iv.semitones)
+        except:
+            continue
+
+    # tolerance 적용해서 유사도 비교용 rounding
+    normalized_intervals = [round(i / tolerance) * tolerance for i in raw_intervals]
+    return normalized_intervals
+
+
 
 def calculate_similarity_with_tolerance(list1, list2):
     """오차 범위를 적용한 유사도 계산"""
@@ -52,6 +56,8 @@ def calculate_similarity_with_tolerance(list1, list2):
     common_elements = set1.intersection(set2)
     total_elements = set1.union(set2)
     return len(common_elements) / len(total_elements) if total_elements else 0
+
+
 
 def compare_midi_files_with_tolerance(midi1_path, midi2_path):
     """오차 범위를 적용하여 MIDI 파일 비교"""
@@ -63,7 +69,7 @@ def compare_midi_files_with_tolerance(midi1_path, midi2_path):
     rhythm_similarity = calculate_similarity_with_tolerance(rhythms1, rhythms2)
     interval_similarity = calculate_similarity_with_tolerance(intervals1, intervals2)
 
-    final_similarity = (pitch_similarity * 0.5) + (rhythm_similarity * 0.3) + (interval_similarity * 0.2)
+    final_similarity = (pitch_similarity * 0.5) + (rhythm_similarity * 0.4) + (interval_similarity * 0.1)
 
     return {
         "pitch_similarity": round(pitch_similarity, 3),
