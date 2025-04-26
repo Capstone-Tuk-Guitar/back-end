@@ -16,3 +16,34 @@ def get_db_connection():
         port=3306                # 포트
     )
     return connection
+
+def initialize_db():
+    db = get_db_connection()
+    cursor = db.cursor()
+
+    # users 테이블 생성
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS users (
+        user_id INT AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(255) NOT NULL,
+        email VARCHAR(255),
+        password VARCHAR(255)
+    )
+    """)
+
+    # music 테이블 생성
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS Music (
+        music_id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT,
+        title VARCHAR(255) NOT NULL,
+        composer VARCHAR(255),
+        file_path VARCHAR(500),
+        upload_date DATETIME,
+        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+    )
+    """)
+
+    db.commit()
+    cursor.close()
+    db.close()

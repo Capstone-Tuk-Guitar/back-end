@@ -4,12 +4,15 @@ from fastapi.staticfiles import StaticFiles
 import os
 import shutil
 from function.db import get_db_connection
+from function.db import initialize_db
 from datetime import datetime
 from dotenv import load_dotenv
 
 load_dotenv()
 
 db_run_router = APIRouter()
+
+initialize_db()
 
 # 서버 정보
 SERVER_IP = os.getenv('SERVER_IP')

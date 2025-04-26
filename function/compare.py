@@ -1,6 +1,7 @@
 from fastapi import APIRouter, UploadFile, File
 import os
-from music21 import converter, interval, chord, pitch
+import uuid
+from music21 import converter, interval, pitch
 
 compare_router = APIRouter()
 
@@ -35,7 +36,6 @@ def extract_intervals(midi_path, tolerance=3):
     midi = converter.parse(midi_path)
     notes = [n.pitch for n in midi.flat.notes if n.isNote]
 
-    # MIDI 간격으로 interval 추출 (예: C4->D4 = 2)
     raw_intervals = []
     for i in range(len(notes) - 1):
         try:
@@ -44,32 +44,39 @@ def extract_intervals(midi_path, tolerance=3):
         except:
             continue
 
-    # tolerance 적용해서 유사도 비교용 rounding
     normalized_intervals = [round(i / tolerance) * tolerance for i in raw_intervals]
     return normalized_intervals
 
+def calculate_penalty_score(list1, list2, tolerance):
+    """100점 시작 후, tolerance 밖일 때마다 1점 감점"""
+    min_len = min(len(list1), len(list2))
+    if min_len == 0:
+        return 0.0
 
+    score = 100.0
+    for i in range(min_len):
+        try:
+            if abs(float(list1[i]) - float(list2[i])) > tolerance:
+                score -= 1.0
+        except:
+            continue
 
-def calculate_similarity_with_tolerance(list1, list2):
-    """오차 범위를 적용한 유사도 계산"""
-    set1, set2 = set(list1), set(list2)
-    common_elements = set1.intersection(set2)
-    total_elements = set1.union(set2)
-    return len(common_elements) / len(total_elements) if total_elements else 0
+    # 점수는 0점 밑으로 내려가지 않게
+    score = max(score, 0.0)
 
+    return score / 100.0  # 0~1로 변환해서 반환
 
-
-def compare_midi_files_with_tolerance(midi1_path, midi2_path):
-    """오차 범위를 적용하여 MIDI 파일 비교"""
+def compare_midi_files_with_penalty(midi1_path, midi2_path):
+    """MIDI 파일 비교"""
     notes1, notes2 = extract_notes(midi1_path), extract_notes(midi2_path)
     rhythms1, rhythms2 = extract_rhythms(midi1_path), extract_rhythms(midi2_path)
     intervals1, intervals2 = extract_intervals(midi1_path), extract_intervals(midi2_path)
 
-    pitch_similarity = calculate_similarity_with_tolerance(notes1, notes2)
-    rhythm_similarity = calculate_similarity_with_tolerance(rhythms1, rhythms2)
-    interval_similarity = calculate_similarity_with_tolerance(intervals1, intervals2)
+    pitch_similarity = calculate_penalty_score(notes1, notes2, tolerance=2)
+    rhythm_similarity = calculate_penalty_score(rhythms1, rhythms2, tolerance=0.5)
+    interval_similarity = calculate_penalty_score(intervals1, intervals2, tolerance=2)
 
-    final_similarity = (pitch_similarity * 0.5) + (rhythm_similarity * 0.4) + (interval_similarity * 0.1)
+    final_similarity = (pitch_similarity * 0.4) + (rhythm_similarity * 0.55) + (interval_similarity * 0.05)
 
     return {
         "pitch_similarity": round(pitch_similarity, 3),
@@ -80,8 +87,9 @@ def compare_midi_files_with_tolerance(midi1_path, midi2_path):
 
 @compare_router.post("/compare/")
 async def compare_midi_files(file1: UploadFile = File(...), file2: UploadFile = File(...)):
-    file1_path = f"temp_{file1.filename}"
-    file2_path = f"temp_{file2.filename}"
+    # UUID 사용해서 파일명 충돌 방지
+    file1_path = f"temp_{uuid.uuid4()}_{file1.filename}"
+    file2_path = f"temp_{uuid.uuid4()}_{file2.filename}"
 
     with open(file1_path, "wb") as f:
         f.write(await file1.read())
@@ -89,7 +97,7 @@ async def compare_midi_files(file1: UploadFile = File(...), file2: UploadFile = 
     with open(file2_path, "wb") as f:
         f.write(await file2.read())
 
-    similarity_result = compare_midi_files_with_tolerance(file1_path, file2_path)
+    similarity_result = compare_midi_files_with_penalty(file1_path, file2_path)
 
     os.remove(file1_path)
     os.remove(file2_path)
