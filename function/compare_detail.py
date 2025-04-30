@@ -189,8 +189,8 @@ def get_differences(seq1, seq2, tolerance, label):
 
             # 리듬: 초 단위 문자열
             elif label == "rhythm":
-                val1 = f"{seq1[i]:.2f}초"
-                val2 = f"{seq2[i]:.2f}초"
+                val1 = f"{float(seq1[i]):.2f}초"
+                val2 = f"{float(seq2[i]):.2f}초"
 
             # 시간도 소수점 둘째 자리까지
             differences.append({
