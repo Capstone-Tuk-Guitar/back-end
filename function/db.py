@@ -5,8 +5,6 @@ from pathlib import Path
 
 load_dotenv()
 
-print("🌍 SERVER_IP from .env:", os.getenv("SERVER_IP"))
-
 def get_db_connection():
     connection = mysql.connector.connect(
         host=os.getenv('SERVER_IP'),  # IPv4
