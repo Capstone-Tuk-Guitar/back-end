@@ -1,0 +1,1226 @@
+{
+  "A": {
+    "major": {
+      "notes": [
+        {"note": "A", "role": "root", "weight": 1.0},
+        {"note": "C#", "role": "third", "weight": 0.8},
+        {"note": "E", "role": "fifth", "weight": 0.6}
+      ],
+      "fingering": ["x", 0, 2, 2, 2, 0]
+    },
+    "minor": {
+      "notes": [
+        {"note": "A", "role": "root", "weight": 1.0},
+        {"note": "C", "role": "minor third", "weight": 0.8},
+        {"note": "E", "role": "fifth", "weight": 0.6}
+      ],
+      "fingering": ["x", 0, 2, 2, 1, 0]
+    },
+    "7": {
+      "notes": [
+        {"note": "A", "role": "root", "weight": 1.0},
+        {"note": "C#", "role": "third", "weight": 0.8},
+        {"note": "E", "role": "fifth", "weight": 0.6},
+        {"note": "G", "role": "seventh", "weight": 0.7}
+      ],
+      "fingering": ["x", 0, 2, 0, 2, 0]
+    },
+    "5": {
+      "notes": [
+        {"note": "A", "role": "root", "weight": 1.0},
+        {"note": "E", "role": "fifth", "weight": 0.6}
+      ],
+      "fingering": ["x", 0, 2, 2, "x", "x"]
+    },
+    "maj7": {
+      "notes": [
+        {"note": "A", "role": "root", "weight": 1.0},
+        {"note": "C#", "role": "third", "weight": 0.8},
+        {"note": "E", "role": "fifth", "weight": 0.6},
+        {"note": "G#", "role": "major seventh", "weight": 0.7}
+      ],
+      "fingering": ["x", 0, 2, 1, 2, 0]
+    },
+    "m7": {
+      "notes": [
+        {"note": "A", "role": "root", "weight": 1.0},
+        {"note": "C", "role": "minor third", "weight": 0.8},
+        {"note": "E", "role": "fifth", "weight": 0.6},
+        {"note": "G", "role": "seventh", "weight": 0.7}
+      ],
+      "fingering": ["x", 0, 2, 0, 1, 0]
+    },
+    "dim": {
+      "notes": [
+        {"note": "A", "role": "root", "weight": 1.0},
+        {"note": "C", "role": "minor third", "weight": 0.8},
+        {"note": "D#", "role": "diminished fifth", "weight": 0.6}
+      ],
+      "fingering": ["x", 0, 1, 2, 1, "x"]
+    },
+    "dim7": {
+      "notes": [
+        {"note": "A", "role": "root", "weight": 1.0},
+        {"note": "C", "role": "minor third", "weight": 0.8},
+        {"note": "D#", "role": "diminished fifth", "weight": 0.6},
+        {"note": "F#", "role": "diminished seventh", "weight": 0.7}
+      ],
+      "fingering": ["x", 0, 1, 0, 1, 0]
+    },
+    "aug": {
+      "notes": [
+        {"note": "A", "role": "root", "weight": 1.0},
+        {"note": "C#", "role": "third", "weight": 0.8},
+        {"note": "F", "role": "augmented fifth", "weight": 0.6}
+      ],
+      "fingering": ["x", 0, 3, 2, 2, 1]
+    },
+    "sus2": {
+      "notes": [
+        {"note": "A", "role": "root", "weight": 1.0},
+        {"note": "B", "role": "suspended second", "weight": 0.6},
+        {"note": "E", "role": "fifth", "weight": 0.6}
+      ],
+      "fingering": ["x", 0, 2, 2, 0, 0]
+    },
+    "sus4": {
+      "notes": [
+        {"note": "A", "role": "root", "weight": 1.0},
+        {"note": "D", "role": "suspended fourth", "weight": 0.6},
+        {"note": "E", "role": "fifth", "weight": 0.6}
+      ],
+      "fingering": ["x", 0, 2, 2, 3, 0]
+    },
+    "7sus4": {
+      "notes": [
+        {"note": "A", "role": "root", "weight": 1.0},
+        {"note": "D", "role": "suspended fourth", "weight": 0.6},
+        {"note": "E", "role": "fifth", "weight": 0.6},
+        {"note": "G", "role": "seventh", "weight": 0.7}
+      ],
+      "fingering": ["x", 0, 2, 0, 3, 0]
+    }
+  },
+ "B": {
+  "major": {
+    "notes": [
+      {"note": "B", "role": "root", "weight": 1.0},
+      {"note": "D#", "role": "third", "weight": 0.8},
+      {"note": "F#", "role": "fifth", "weight": 0.6}
+    ],
+    "fingering": ["x", 2, 4, 4, 4, 2]
+  },
+  "minor": {
+    "notes": [
+      {"note": "B", "role": "root", "weight": 1.0},
+      {"note": "D", "role": "minor third", "weight": 0.8},
+      {"note": "F#", "role": "fifth", "weight": 0.6}
+    ],
+    "fingering": ["x", 2, 4, 4, 3, 2]
+  },
+  "7": {
+    "notes": [
+      {"note": "B", "role": "root", "weight": 1.0},
+      {"note": "D#", "role": "third", "weight": 0.8},
+      {"note": "F#", "role": "fifth", "weight": 0.6},
+      {"note": "A", "role": "seventh", "weight": 0.7}
+    ],
+    "fingering": ["x", 2, 1, 2, 0, 2]
+  },
+  "5": {
+    "notes": [
+      {"note": "B", "role": "root", "weight": 1.0},
+      {"note": "F#", "role": "fifth", "weight": 0.6}
+    ],
+    "fingering": ["x", 2, 4, 4, "x", "x"]
+  },
+  "maj7": {
+    "notes": [
+      {"note": "B", "role": "root", "weight": 1.0},
+      {"note": "D#", "role": "third", "weight": 0.8},
+      {"note": "F#", "role": "fifth", "weight": 0.6},
+      {"note": "A#", "role": "major seventh", "weight": 0.7}
+    ],
+    "fingering": ["x", 2, 1, 3, 0, 2]
+  },
+  "m7": {
+    "notes": [
+      {"note": "B", "role": "root", "weight": 1.0},
+      {"note": "D", "role": "minor third", "weight": 0.8},
+      {"note": "F#", "role": "fifth", "weight": 0.6},
+      {"note": "A", "role": "seventh", "weight": 0.7}
+    ],
+    "fingering": ["x", 2, 0, 2, 0, 2]
+  },
+  "dim": {
+    "notes": [
+      {"note": "B", "role": "root", "weight": 1.0},
+      {"note": "D", "role": "minor third", "weight": 0.8},
+      {"note": "F", "role": "diminished fifth", "weight": 0.6}
+    ],
+    "fingering": ["x", 2, 0, 2, 0, 1]
+  },
+  "dim7": {
+    "notes": [
+      {"note": "B", "role": "root", "weight": 1.0},
+      {"note": "D", "role": "minor third", "weight": 0.8},
+      {"note": "F", "role": "diminished fifth", "weight": 0.6},
+      {"note": "G#", "role": "diminished seventh", "weight": 0.7}
+    ],
+    "fingering": ["x", 2, 3, 1, 3, "x"]
+  },
+  "aug": {
+    "notes": [
+      {"note": "B", "role": "root", "weight": 1.0},
+      {"note": "D#", "role": "third", "weight": 0.8},
+      {"note": "G", "role": "augmented fifth", "weight": 0.6}
+    ],
+    "fingering": ["x", 2, 1, 0, 0, 3]
+  },
+  "sus2": {
+    "notes": [
+      {"note": "B", "role": "root", "weight": 1.0},
+      {"note": "C#", "role": "suspended second", "weight": 0.6},
+      {"note": "F#", "role": "fifth", "weight": 0.6}
+    ],
+    "fingering": ["x", 2, 4, 4, 2, 2]
+  },
+  "sus4": {
+    "notes": [
+      {"note": "B", "role": "root", "weight": 1.0},
+      {"note": "E", "role": "suspended fourth", "weight": 0.6},
+      {"note": "F#", "role": "fifth", "weight": 0.6}
+    ],
+    "fingering": ["x", 2, 4, 4, 5, 2]
+  },
+  "7sus4": {
+    "notes": [
+      {"note": "B", "role": "root", "weight": 1.0},
+      {"note": "E", "role": "suspended fourth", "weight": 0.6},
+      {"note": "F#", "role": "fifth", "weight": 0.6},
+      {"note": "A", "role": "seventh", "weight": 0.7}
+    ],
+    "fingering": ["x", 2, 2, 2, 2, 2]
+  }
+},
+"C": {
+  "major": {
+    "notes": [
+      { "note": "C", "role": "root", "weight": 1.0 },
+      { "note": "E", "role": "third", "weight": 0.8 },
+      { "note": "G", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 3, 2, 0, 1, 0]
+  },
+  "minor": {
+    "notes": [
+      { "note": "C", "role": "root", "weight": 1.0 },
+      { "note": "D#", "role": "minor third", "weight": 0.8 },
+      { "note": "G", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 3, 1, 0, 1, "x"]
+  },
+  "7": {
+    "notes": [
+      { "note": "C", "role": "root", "weight": 1.0 },
+      { "note": "E", "role": "third", "weight": 0.8 },
+      { "note": "G", "role": "fifth", "weight": 0.6 },
+      { "note": "Bb", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 3, 2, 3, 1, 0]
+  },
+  "5": {
+    "notes": [
+      { "note": "C", "role": "root", "weight": 1.0 },
+      { "note": "G", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 3, 5, 5, "x", "x"]
+  },
+  "maj7": {
+    "notes": [
+      { "note": "C", "role": "root", "weight": 1.0 },
+      { "note": "E", "role": "third", "weight": 0.8 },
+      { "note": "G", "role": "fifth", "weight": 0.6 },
+      { "note": "B", "role": "major seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 3, 2, 0, 0, 0]
+  },
+  "m7": {
+    "notes": [
+      { "note": "C", "role": "root", "weight": 1.0 },
+      { "note": "D#", "role": "minor third", "weight": 0.8 },
+      { "note": "G", "role": "fifth", "weight": 0.6 },
+      { "note": "Bb", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 3, 1, 3, 1, "x"]
+  },
+  "dim": {
+    "notes": [
+      { "note": "C", "role": "root", "weight": 1.0 },
+      { "note": "D#", "role": "minor third", "weight": 0.8 },
+      { "note": "F#", "role": "diminished fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 3, 1, 0, 1, "x"]
+  },
+  "dim7": {
+    "notes": [
+      { "note": "C", "role": "root", "weight": 1.0 },
+      { "note": "D#", "role": "minor third", "weight": 0.8 },
+      { "note": "F#", "role": "diminished fifth", "weight": 0.6 },
+      { "note": "A", "role": "diminished seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 3, 1, 2, 1, "x"]
+  },
+  "aug": {
+    "notes": [
+      { "note": "C", "role": "root", "weight": 1.0 },
+      { "note": "E", "role": "third", "weight": 0.8 },
+      { "note": "G#", "role": "augmented fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 3, 2, 1, 1, "x"]
+  },
+  "sus2": {
+    "notes": [
+      { "note": "C", "role": "root", "weight": 1.0 },
+      { "note": "D", "role": "suspended second", "weight": 0.6 },
+      { "note": "G", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 3, 0, 0, 1, 0]
+  },
+  "sus4": {
+    "notes": [
+      { "note": "C", "role": "root", "weight": 1.0 },
+      { "note": "F", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "G", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 3, 3, 0, 1, 1]
+  },
+  "7sus4": {
+    "notes": [
+      { "note": "C", "role": "root", "weight": 1.0 },
+      { "note": "F", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "G", "role": "fifth", "weight": 0.6 },
+      { "note": "Bb", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 3, 3, 3, 1, 1]
+  }
+},
+"D": {
+  "major": {
+    "notes": [
+      { "note": "D", "role": "root", "weight": 1.0 },
+      { "note": "F#", "role": "third", "weight": 0.8 },
+      { "note": "A", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", "x", 0, 2, 3, 2]
+  },
+  "minor": {
+    "notes": [
+      { "note": "D", "role": "root", "weight": 1.0 },
+      { "note": "F", "role": "minor third", "weight": 0.8 },
+      { "note": "A", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", "x", 0, 2, 3, 1]
+  },
+  "7": {
+    "notes": [
+      { "note": "D", "role": "root", "weight": 1.0 },
+      { "note": "F#", "role": "third", "weight": 0.8 },
+      { "note": "A", "role": "fifth", "weight": 0.6 },
+      { "note": "C", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", "x", 0, 2, 1, 2]
+  },
+  "5": {
+    "notes": [
+      { "note": "D", "role": "root", "weight": 1.0 },
+      { "note": "A", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 5, 7, 7, "x", "x"]
+  },
+  "maj7": {
+    "notes": [
+      { "note": "D", "role": "root", "weight": 1.0 },
+      { "note": "F#", "role": "third", "weight": 0.8 },
+      { "note": "A", "role": "fifth", "weight": 0.6 },
+      { "note": "C#", "role": "major seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", "x", 0, 2, 2, 2]
+  },
+  "m7": {
+    "notes": [
+      { "note": "D", "role": "root", "weight": 1.0 },
+      { "note": "F", "role": "minor third", "weight": 0.8 },
+      { "note": "A", "role": "fifth", "weight": 0.6 },
+      { "note": "C", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", "x", 0, 2, 1, 1]
+  },
+  "dim": {
+    "notes": [
+      { "note": "D", "role": "root", "weight": 1.0 },
+      { "note": "F", "role": "minor third", "weight": 0.8 },
+      { "note": "G#", "role": "diminished fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", "x", 0, 1, 3, 1]
+  },
+  "dim7": {
+    "notes": [
+      { "note": "D", "role": "root", "weight": 1.0 },
+      { "note": "F", "role": "minor third", "weight": 0.8 },
+      { "note": "G#", "role": "diminished fifth", "weight": 0.6 },
+      { "note": "B", "role": "diminished seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", "x", 0, 1, 0, 1]
+  },
+  "aug": {
+    "notes": [
+      { "note": "D", "role": "root", "weight": 1.0 },
+      { "note": "F#", "role": "third", "weight": 0.8 },
+      { "note": "A#", "role": "augmented fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", "x", 0, 3, 3, 2]
+  },
+  "sus2": {
+    "notes": [
+      { "note": "D", "role": "root", "weight": 1.0 },
+      { "note": "E", "role": "suspended second", "weight": 0.6 },
+      { "note": "A", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", "x", 0, 2, 3, 0]
+  },
+  "sus4": {
+    "notes": [
+      { "note": "D", "role": "root", "weight": 1.0 },
+      { "note": "G", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "A", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", "x", 0, 2, 3, 3]
+  },
+  "7sus4": {
+    "notes": [
+      { "note": "D", "role": "root", "weight": 1.0 },
+      { "note": "G", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "A", "role": "fifth", "weight": 0.6 },
+      { "note": "C", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", "x", 0, 2, 1, 3]
+  }
+},
+"E": {
+  "major": {
+    "notes": [
+      { "note": "E", "role": "root", "weight": 1.0 },
+      { "note": "G#", "role": "third", "weight": 0.8 },
+      { "note": "B", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [0, 2, 2, 1, 0, 0]
+  },
+  "minor": {
+    "notes": [
+      { "note": "E", "role": "root", "weight": 1.0 },
+      { "note": "G", "role": "minor third", "weight": 0.8 },
+      { "note": "B", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [0, 2, 2, 0, 0, 0]
+  },
+  "7": {
+    "notes": [
+      { "note": "E", "role": "root", "weight": 1.0 },
+      { "note": "G#", "role": "third", "weight": 0.8 },
+      { "note": "B", "role": "fifth", "weight": 0.6 },
+      { "note": "D", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [0, 2, 0, 1, 0, 0]
+  },
+  "5": {
+    "notes": [
+      { "note": "E", "role": "root", "weight": 1.0 },
+      { "note": "B", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [0, 2, 2, "x", "x", "x"]
+  },
+  "maj7": {
+    "notes": [
+      { "note": "E", "role": "root", "weight": 1.0 },
+      { "note": "G#", "role": "third", "weight": 0.8 },
+      { "note": "B", "role": "fifth", "weight": 0.6 },
+      { "note": "D#", "role": "major seventh", "weight": 0.7 }
+    ],
+    "fingering": [0, 2, 1, 1, 0, 0]
+  },
+  "m7": {
+    "notes": [
+      { "note": "E", "role": "root", "weight": 1.0 },
+      { "note": "G", "role": "minor third", "weight": 0.8 },
+      { "note": "B", "role": "fifth", "weight": 0.6 },
+      { "note": "D", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [0, 2, 0, 0, 0, 0]
+  },
+  "dim": {
+    "notes": [
+      { "note": "E", "role": "root", "weight": 1.0 },
+      { "note": "G", "role": "minor third", "weight": 0.8 },
+      { "note": "A#", "role": "diminished fifth", "weight": 0.6 }
+    ],
+    "fingering": [0, 1, 2, 0, "x", "x"]
+  },
+  "dim7": {
+    "notes": [
+      { "note": "E", "role": "root", "weight": 1.0 },
+      { "note": "G", "role": "minor third", "weight": 0.8 },
+      { "note": "A#", "role": "diminished fifth", "weight": 0.6 },
+      { "note": "C#", "role": "diminished seventh", "weight": 0.7 }
+    ],
+    "fingering": [0, 1, 2, 0, 2, 0]
+  },
+  "aug": {
+    "notes": [
+      { "note": "E", "role": "root", "weight": 1.0 },
+      { "note": "G#", "role": "third", "weight": 0.8 },
+      { "note": "C", "role": "augmented fifth", "weight": 0.6 }
+    ],
+    "fingering": [0, 3, 2, 1, 1, 0]
+  },
+  "sus2": {
+    "notes": [
+      { "note": "E", "role": "root", "weight": 1.0 },
+      { "note": "F#", "role": "suspended second", "weight": 0.6 },
+      { "note": "B", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [0, 2, 4, 4, 0, 0]
+  },
+  "sus4": {
+    "notes": [
+      { "note": "E", "role": "root", "weight": 1.0 },
+      { "note": "A", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "B", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [0, 2, 2, 2, 0, 0]
+  },
+  "7sus4": {
+    "notes": [
+      { "note": "E", "role": "root", "weight": 1.0 },
+      { "note": "A", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "B", "role": "fifth", "weight": 0.6 },
+      { "note": "D", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [0, 2, 0, 2, 0, 0]
+  }
+},
+"F": {
+  "major": {
+    "notes": [
+      { "note": "F", "role": "root", "weight": 1.0 },
+      { "note": "A", "role": "third", "weight": 0.8 },
+      { "note": "C", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [1, 3, 3, 2, 1, 1]
+  },
+  "minor": {
+    "notes": [
+      { "note": "F", "role": "root", "weight": 1.0 },
+      { "note": "G#", "role": "minor third", "weight": 0.8 },
+      { "note": "C", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [1, 3, 3, 1, 1, 1]
+  },
+  "7": {
+    "notes": [
+      { "note": "F", "role": "root", "weight": 1.0 },
+      { "note": "A", "role": "third", "weight": 0.8 },
+      { "note": "C", "role": "fifth", "weight": 0.6 },
+      { "note": "D#", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [1, 3, 1, 2, 1, 1]
+  },
+  "5": {
+    "notes": [
+      { "note": "F", "role": "root", "weight": 1.0 },
+      { "note": "C", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [1, 3, 3, "x", "x", "x"]
+  },
+  "maj7": {
+    "notes": [
+      { "note": "F", "role": "root", "weight": 1.0 },
+      { "note": "A", "role": "third", "weight": 0.8 },
+      { "note": "C", "role": "fifth", "weight": 0.6 },
+      { "note": "E", "role": "major seventh", "weight": 0.7 }
+    ],
+    "fingering": [1, 3, 2, 2, 1, 1]
+  },
+  "m7": {
+    "notes": [
+      { "note": "F", "role": "root", "weight": 1.0 },
+      { "note": "G#", "role": "minor third", "weight": 0.8 },
+      { "note": "C", "role": "fifth", "weight": 0.6 },
+      { "note": "D#", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [1, 3, 1, 1, 1, 1]
+  },
+  "dim": {
+    "notes": [
+      { "note": "F", "role": "root", "weight": 1.0 },
+      { "note": "G#", "role": "minor third", "weight": 0.8 },
+      { "note": "B", "role": "diminished fifth", "weight": 0.6 }
+    ],
+    "fingering": [1, 2, 3, 1, "x", "x"]
+  },
+  "dim7": {
+    "notes": [
+      { "note": "F", "role": "root", "weight": 1.0 },
+      { "note": "G#", "role": "minor third", "weight": 0.8 },
+      { "note": "B", "role": "diminished fifth", "weight": 0.6 },
+      { "note": "D", "role": "diminished seventh", "weight": 0.7 }
+    ],
+    "fingering": [1, 2, 3, 1, 3, 1]
+  },
+  "aug": {
+    "notes": [
+      { "note": "F", "role": "root", "weight": 1.0 },
+      { "note": "A", "role": "third", "weight": 0.8 },
+      { "note": "C#", "role": "augmented fifth", "weight": 0.6 }
+    ],
+    "fingering": [1, 4, 3, 2, 2, 1]
+  },
+  "sus2": {
+    "notes": [
+      { "note": "F", "role": "root", "weight": 1.0 },
+      { "note": "G", "role": "suspended second", "weight": 0.6 },
+      { "note": "C", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [1, 3, 3, 0, 1, 1]
+  },
+  "sus4": {
+    "notes": [
+      { "note": "F", "role": "root", "weight": 1.0 },
+      { "note": "A#", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "C", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [1, 3, 3, 3, 1, 1]
+  },
+  "7sus4": {
+    "notes": [
+      { "note": "F", "role": "root", "weight": 1.0 },
+      { "note": "A#", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "C", "role": "fifth", "weight": 0.6 },
+      { "note": "D#", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [1, 3, 1, 3, 1, 1]
+  }
+},
+"G": {
+  "major": {
+    "notes": [
+      { "note": "G", "role": "root", "weight": 1.0 },
+      { "note": "B", "role": "third", "weight": 0.8 },
+      { "note": "D", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [3, 2, 0, 0, 0, 3]
+  },
+  "minor": {
+    "notes": [
+      { "note": "G", "role": "root", "weight": 1.0 },
+      { "note": "A#", "role": "minor third", "weight": 0.8 },
+      { "note": "D", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [3, 1, 0, 0, 3, 3]
+  },
+  "7": {
+    "notes": [
+      { "note": "G", "role": "root", "weight": 1.0 },
+      { "note": "B", "role": "third", "weight": 0.8 },
+      { "note": "D", "role": "fifth", "weight": 0.6 },
+      { "note": "F", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [3, 2, 0, 0, 0, 1]
+  },
+  "5": {
+    "notes": [
+      { "note": "G", "role": "root", "weight": 1.0 },
+      { "note": "D", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [3, 5, 5, "x", "x", "x"]
+  },
+  "maj7": {
+    "notes": [
+      { "note": "G", "role": "root", "weight": 1.0 },
+      { "note": "B", "role": "third", "weight": 0.8 },
+      { "note": "D", "role": "fifth", "weight": 0.6 },
+      { "note": "F#", "role": "major seventh", "weight": 0.7 }
+    ],
+    "fingering": [3, 2, 0, 0, 0, 2]
+  },
+  "m7": {
+    "notes": [
+      { "note": "G", "role": "root", "weight": 1.0 },
+      { "note": "A#", "role": "minor third", "weight": 0.8 },
+      { "note": "D", "role": "fifth", "weight": 0.6 },
+      { "note": "F", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [3, 1, 0, 0, 0, 1]
+  },
+  "dim": {
+    "notes": [
+      { "note": "G", "role": "root", "weight": 1.0 },
+      { "note": "A#", "role": "minor third", "weight": 0.8 },
+      { "note": "C#", "role": "diminished fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", "x", 5, 6, 5, 6]
+  },
+  "dim7": {
+    "notes": [
+      { "note": "G", "role": "root", "weight": 1.0 },
+      { "note": "A#", "role": "minor third", "weight": 0.8 },
+      { "note": "C#", "role": "diminished fifth", "weight": 0.6 },
+      { "note": "E", "role": "diminished seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", "x", 3, 4, 3, 4]
+  },
+  "aug": {
+    "notes": [
+      { "note": "G", "role": "root", "weight": 1.0 },
+      { "note": "B", "role": "third", "weight": 0.8 },
+      { "note": "D#", "role": "augmented fifth", "weight": 0.6 }
+    ],
+    "fingering": [3, 2, 1, 0, 0, 3]
+  },
+  "sus2": {
+    "notes": [
+      { "note": "G", "role": "root", "weight": 1.0 },
+      { "note": "A", "role": "suspended second", "weight": 0.6 },
+      { "note": "D", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [3, 0, 0, 0, 3, 3]
+  },
+  "sus4": {
+    "notes": [
+      { "note": "G", "role": "root", "weight": 1.0 },
+      { "note": "C", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "D", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [3, 3, 0, 0, 1, 3]
+  },
+  "7sus4": {
+    "notes": [
+      { "note": "G", "role": "root", "weight": 1.0 },
+      { "note": "C", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "D", "role": "fifth", "weight": 0.6 },
+      { "note": "F", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [3, 3, 0, 0, 1, 1]
+  }
+},
+ "A#": {
+  "major": {
+    "notes": [
+      { "note": "A#", "role": "root", "weight": 1.0 },
+      { "note": "D", "role": "third", "weight": 0.8 },
+      { "note": "F", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 1, 3, 3, 3, 1]
+  },
+  "minor": {
+    "notes": [
+      { "note": "A#", "role": "root", "weight": 1.0 },
+      { "note": "C#", "role": "minor third", "weight": 0.8 },
+      { "note": "F", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 1, 3, 3, 2, 1]
+  },
+  "7": {
+    "notes": [
+      { "note": "A#", "role": "root", "weight": 1.0 },
+      { "note": "D", "role": "third", "weight": 0.8 },
+      { "note": "F", "role": "fifth", "weight": 0.6 },
+      { "note": "G#", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 1, 3, 1, 3, 1]
+  },
+  "5": {
+    "notes": [
+      { "note": "A#", "role": "root", "weight": 1.0 },
+      { "note": "F", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 1, 3, 3, "x", "x"]
+  },
+  "maj7": {
+    "notes": [
+      { "note": "A#", "role": "root", "weight": 1.0 },
+      { "note": "D", "role": "third", "weight": 0.8 },
+      { "note": "F", "role": "fifth", "weight": 0.6 },
+      { "note": "A", "role": "major seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 1, 3, 2, 3, 1]
+  },
+  "m7": {
+    "notes": [
+      { "note": "A#", "role": "root", "weight": 1.0 },
+      { "note": "C#", "role": "minor third", "weight": 0.8 },
+      { "note": "F", "role": "fifth", "weight": 0.6 },
+      { "note": "G#", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 1, 3, 1, 2, 1]
+  },
+  "dim": {
+    "notes": [
+      { "note": "A#", "role": "root", "weight": 1.0 },
+      { "note": "C#", "role": "minor third", "weight": 0.8 },
+      { "note": "E", "role": "diminished fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", "x", 1, 2, 1, 2]
+  },
+  "dim7": {
+    "notes": [
+      { "note": "A#", "role": "root", "weight": 1.0 },
+      { "note": "C#", "role": "minor third", "weight": 0.8 },
+      { "note": "E", "role": "diminished fifth", "weight": 0.6 },
+      { "note": "G", "role": "diminished seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", "x", 1, 2, 1, 2]
+  },
+  "aug": {
+    "notes": [
+      { "note": "A#", "role": "root", "weight": 1.0 },
+      { "note": "D", "role": "third", "weight": 0.8 },
+      { "note": "F#", "role": "augmented fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 1, 0, 1, 1, "x"]
+  },
+  "sus2": {
+    "notes": [
+      { "note": "A#", "role": "root", "weight": 1.0 },
+      { "note": "C", "role": "suspended second", "weight": 0.6 },
+      { "note": "F", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 1, 3, 3, 1, 1]
+  },
+  "sus4": {
+    "notes": [
+      { "note": "A#", "role": "root", "weight": 1.0 },
+      { "note": "D#", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "F", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 1, 3, 3, 4, 1]
+  },
+  "7sus4": {
+    "notes": [
+      { "note": "A#", "role": "root", "weight": 1.0 },
+      { "note": "D#", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "F", "role": "fifth", "weight": 0.6 },
+      { "note": "G#", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 1, 3, 1, 4, 1]
+  }
+},
+"C#": {
+  "major": {
+    "notes": [
+      { "note": "C#", "role": "root", "weight": 1.0 },
+      { "note": "F", "role": "third", "weight": 0.8 },
+      { "note": "G#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 4, 6, 6, 6, 4]
+  },
+  "minor": {
+    "notes": [
+      { "note": "C#", "role": "root", "weight": 1.0 },
+      { "note": "E", "role": "minor third", "weight": 0.8 },
+      { "note": "G#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 4, 6, 6, 5, 4]
+  },
+  "7": {
+    "notes": [
+      { "note": "C#", "role": "root", "weight": 1.0 },
+      { "note": "F", "role": "third", "weight": 0.8 },
+      { "note": "G#", "role": "fifth", "weight": 0.6 },
+      { "note": "B", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 4, 6, 4, 6, 4]
+  },
+  "5": {
+    "notes": [
+      { "note": "C#", "role": "root", "weight": 1.0 },
+      { "note": "G#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 4, 6, 6, "x", "x"]
+  },
+  "maj7": {
+    "notes": [
+      { "note": "C#", "role": "root", "weight": 1.0 },
+      { "note": "F", "role": "third", "weight": 0.8 },
+      { "note": "G#", "role": "fifth", "weight": 0.6 },
+      { "note": "C", "role": "major seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 4, 6, 5, 6, 4]
+  },
+  "m7": {
+    "notes": [
+      { "note": "C#", "role": "root", "weight": 1.0 },
+      { "note": "E", "role": "minor third", "weight": 0.8 },
+      { "note": "G#", "role": "fifth", "weight": 0.6 },
+      { "note": "B", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 4, 6, 4, 5, 4]
+  },
+  "dim": {
+    "notes": [
+      { "note": "C#", "role": "root", "weight": 1.0 },
+      { "note": "E", "role": "minor third", "weight": 0.8 },
+      { "note": "G", "role": "diminished fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", "x", 2, 3, 2, 3]
+  },
+  "dim7": {
+    "notes": [
+      { "note": "C#", "role": "root", "weight": 1.0 },
+      { "note": "E", "role": "minor third", "weight": 0.8 },
+      { "note": "G", "role": "diminished fifth", "weight": 0.6 },
+      { "note": "A#", "role": "diminished seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", "x", 1, 2, 1, 2]
+  },
+  "aug": {
+    "notes": [
+      { "note": "C#", "role": "root", "weight": 1.0 },
+      { "note": "F", "role": "third", "weight": 0.8 },
+      { "note": "A", "role": "augmented fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 4, 3, 2, 2, "x"]
+  },
+  "sus2": {
+    "notes": [
+      { "note": "C#", "role": "root", "weight": 1.0 },
+      { "note": "D#", "role": "suspended second", "weight": 0.6 },
+      { "note": "G#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 4, 6, 6, 4, 4]
+  },
+  "sus4": {
+    "notes": [
+      { "note": "C#", "role": "root", "weight": 1.0 },
+      { "note": "F#", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "G#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 4, 6, 6, 7, 4]
+  },
+  "7sus4": {
+    "notes": [
+      { "note": "C#", "role": "root", "weight": 1.0 },
+      { "note": "F#", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "G#", "role": "fifth", "weight": 0.6 },
+      { "note": "B", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 4, 6, 4, 7, 4]
+  }
+},
+"D#": {
+  "major": {
+    "notes": [
+      { "note": "D#", "role": "root", "weight": 1.0 },
+      { "note": "G", "role": "third", "weight": 0.8 },
+      { "note": "A#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 6, 8, 8, 8, 6]
+  },
+  "minor": {
+    "notes": [
+      { "note": "D#", "role": "root", "weight": 1.0 },
+      { "note": "F#", "role": "minor third", "weight": 0.8 },
+      { "note": "A#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 6, 8, 8, 7, 6]
+  },
+  "7": {
+    "notes": [
+      { "note": "D#", "role": "root", "weight": 1.0 },
+      { "note": "G", "role": "third", "weight": 0.8 },
+      { "note": "A#", "role": "fifth", "weight": 0.6 },
+      { "note": "C#", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 6, 8, 6, 8, 6]
+  },
+  "5": {
+    "notes": [
+      { "note": "D#", "role": "root", "weight": 1.0 },
+      { "note": "A#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 6, 8, 8, "x", "x"]
+  },
+  "maj7": {
+    "notes": [
+      { "note": "D#", "role": "root", "weight": 1.0 },
+      { "note": "G", "role": "third", "weight": 0.8 },
+      { "note": "A#", "role": "fifth", "weight": 0.6 },
+      { "note": "D", "role": "major seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 6, 8, 7, 8, 6]
+  },
+  "m7": {
+    "notes": [
+      { "note": "D#", "role": "root", "weight": 1.0 },
+      { "note": "F#", "role": "minor third", "weight": 0.8 },
+      { "note": "A#", "role": "fifth", "weight": 0.6 },
+      { "note": "C#", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 6, 8, 6, 7, 6]
+  },
+  "dim": {
+    "notes": [
+      { "note": "D#", "role": "root", "weight": 1.0 },
+      { "note": "F#", "role": "minor third", "weight": 0.8 },
+      { "note": "A", "role": "diminished fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", "x", 5, 6, 5, 6]
+  },
+  "dim7": {
+    "notes": [
+      { "note": "D#", "role": "root", "weight": 1.0 },
+      { "note": "F#", "role": "minor third", "weight": 0.8 },
+      { "note": "A", "role": "diminished fifth", "weight": 0.6 },
+      { "note": "C", "role": "diminished seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", "x", 4, 5, 4, 5]
+  },
+  "aug": {
+    "notes": [
+      { "note": "D#", "role": "root", "weight": 1.0 },
+      { "note": "G", "role": "third", "weight": 0.8 },
+      { "note": "B", "role": "augmented fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 6, 5, 4, 4, "x"]
+  },
+  "sus2": {
+    "notes": [
+      { "note": "D#", "role": "root", "weight": 1.0 },
+      { "note": "F", "role": "suspended second", "weight": 0.6 },
+      { "note": "A#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 6, 8, 8, 6, 6]
+  },
+  "sus4": {
+    "notes": [
+      { "note": "D#", "role": "root", "weight": 1.0 },
+      { "note": "G#", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "A#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", 6, 8, 8, 9, 6]
+  },
+  "7sus4": {
+    "notes": [
+      { "note": "D#", "role": "root", "weight": 1.0 },
+      { "note": "G#", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "A#", "role": "fifth", "weight": 0.6 },
+      { "note": "C#", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", 6, 8, 6, 9, 6]
+  }
+},
+"F#": {
+  "major": {
+    "notes": [
+      { "note": "F#", "role": "root", "weight": 1.0 },
+      { "note": "A#", "role": "third", "weight": 0.8 },
+      { "note": "C#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [2, 4, 4, 3, 2, 2]
+  },
+  "minor": {
+    "notes": [
+      { "note": "F#", "role": "root", "weight": 1.0 },
+      { "note": "A", "role": "minor third", "weight": 0.8 },
+      { "note": "C#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [2, 4, 4, 2, 2, 2]
+  },
+  "7": {
+    "notes": [
+      { "note": "F#", "role": "root", "weight": 1.0 },
+      { "note": "A#", "role": "third", "weight": 0.8 },
+      { "note": "C#", "role": "fifth", "weight": 0.6 },
+      { "note": "E", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [2, 4, 2, 3, 2, 2]
+  },
+  "5": {
+    "notes": [
+      { "note": "F#", "role": "root", "weight": 1.0 },
+      { "note": "C#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [2, 4, 4, "x", "x", "x"]
+  },
+  "maj7": {
+    "notes": [
+      { "note": "F#", "role": "root", "weight": 1.0 },
+      { "note": "A#", "role": "third", "weight": 0.8 },
+      { "note": "C#", "role": "fifth", "weight": 0.6 },
+      { "note": "F", "role": "major seventh", "weight": 0.7 }
+    ],
+    "fingering": [2, 4, 3, 3, 2, 2]
+  },
+  "m7": {
+    "notes": [
+      { "note": "F#", "role": "root", "weight": 1.0 },
+      { "note": "A", "role": "minor third", "weight": 0.8 },
+      { "note": "C#", "role": "fifth", "weight": 0.6 },
+      { "note": "E", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [2, 4, 2, 2, 2, 2]
+  },
+  "dim": {
+    "notes": [
+      { "note": "F#", "role": "root", "weight": 1.0 },
+      { "note": "A", "role": "minor third", "weight": 0.8 },
+      { "note": "C", "role": "diminished fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", "x", 3, 4, 3, 4]
+  },
+  "dim7": {
+    "notes": [
+      { "note": "F#", "role": "root", "weight": 1.0 },
+      { "note": "A", "role": "minor third", "weight": 0.8 },
+      { "note": "C", "role": "diminished fifth", "weight": 0.6 },
+      { "note": "D#", "role": "diminished seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", "x", 2, 3, 2, 3]
+  },
+  "aug": {
+    "notes": [
+      { "note": "F#", "role": "root", "weight": 1.0 },
+      { "note": "A#", "role": "third", "weight": 0.8 },
+      { "note": "D", "role": "augmented fifth", "weight": 0.6 }
+    ],
+    "fingering": [2, 1, 0, 3, 3, 2]
+  },
+  "sus2": {
+    "notes": [
+      { "note": "F#", "role": "root", "weight": 1.0 },
+      { "note": "G#", "role": "suspended second", "weight": 0.6 },
+      { "note": "C#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [2, 4, 4, 1, 2, 2]
+  },
+  "sus4": {
+    "notes": [
+      { "note": "F#", "role": "root", "weight": 1.0 },
+      { "note": "B", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "C#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [2, 4, 4, 4, 2, 2]
+  },
+  "7sus4": {
+    "notes": [
+      { "note": "F#", "role": "root", "weight": 1.0 },
+      { "note": "B", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "C#", "role": "fifth", "weight": 0.6 },
+      { "note": "E", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [2, 4, 2, 4, 2, 2]
+  }
+},
+"G#": {
+  "major": {
+    "notes": [
+      { "note": "G#", "role": "root", "weight": 1.0 },
+      { "note": "C", "role": "third", "weight": 0.8 },
+      { "note": "D#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [4, 6, 6, 5, 4, 4]
+  },
+  "minor": {
+    "notes": [
+      { "note": "G#", "role": "root", "weight": 1.0 },
+      { "note": "B", "role": "minor third", "weight": 0.8 },
+      { "note": "D#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [4, 6, 6, 4, 4, 4]
+  },
+  "7": {
+    "notes": [
+      { "note": "G#", "role": "root", "weight": 1.0 },
+      { "note": "C", "role": "third", "weight": 0.8 },
+      { "note": "D#", "role": "fifth", "weight": 0.6 },
+      { "note": "F#", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [4, 6, 4, 5, 4, 4]
+  },
+  "5": {
+    "notes": [
+      { "note": "G#", "role": "root", "weight": 1.0 },
+      { "note": "D#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [4, 6, 6, "x", "x", "x"]
+  },
+  "maj7": {
+    "notes": [
+      { "note": "G#", "role": "root", "weight": 1.0 },
+      { "note": "C", "role": "third", "weight": 0.8 },
+      { "note": "D#", "role": "fifth", "weight": 0.6 },
+      { "note": "G", "role": "major seventh", "weight": 0.7 }
+    ],
+    "fingering": [4, 6, 5, 5, 4, 4]
+  },
+  "m7": {
+    "notes": [
+      { "note": "G#", "role": "root", "weight": 1.0 },
+      { "note": "B", "role": "minor third", "weight": 0.8 },
+      { "note": "D#", "role": "fifth", "weight": 0.6 },
+      { "note": "F#", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [4, 6, 4, 4, 4, 4]
+  },
+  "dim": {
+    "notes": [
+      { "note": "G#", "role": "root", "weight": 1.0 },
+      { "note": "B", "role": "minor third", "weight": 0.8 },
+      { "note": "D", "role": "diminished fifth", "weight": 0.6 }
+    ],
+    "fingering": ["x", "x", 6, 7, 6, 7]
+  },
+  "dim7": {
+    "notes": [
+      { "note": "G#", "role": "root", "weight": 1.0 },
+      { "note": "B", "role": "minor third", "weight": 0.8 },
+      { "note": "D", "role": "diminished fifth", "weight": 0.6 },
+      { "note": "F", "role": "diminished seventh", "weight": 0.7 }
+    ],
+    "fingering": ["x", "x", 5, 6, 5, 6]
+  },
+  "aug": {
+    "notes": [
+      { "note": "G#", "role": "root", "weight": 1.0 },
+      { "note": "C", "role": "third", "weight": 0.8 },
+      { "note": "E", "role": "augmented fifth", "weight": 0.6 }
+    ],
+    "fingering": [4, 3, 2, 1, 1, 4]
+  },
+  "sus2": {
+    "notes": [
+      { "note": "G#", "role": "root", "weight": 1.0 },
+      { "note": "A#", "role": "suspended second", "weight": 0.6 },
+      { "note": "D#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [4, 6, 6, 3, 4, 4]
+  },
+  "sus4": {
+    "notes": [
+      { "note": "G#", "role": "root", "weight": 1.0 },
+      { "note": "C#", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "D#", "role": "fifth", "weight": 0.6 }
+    ],
+    "fingering": [4, 6, 6, 6, 4, 4]
+  },
+  "7sus4": {
+    "notes": [
+      { "note": "G#", "role": "root", "weight": 1.0 },
+      { "note": "C#", "role": "suspended fourth", "weight": 0.6 },
+      { "note": "D#", "role": "fifth", "weight": 0.6 },
+      { "note": "F#", "role": "seventh", "weight": 0.7 }
+    ],
+    "fingering": [4, 6, 4, 6, 4, 4]
+  }
+}
+}

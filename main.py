@@ -6,6 +6,7 @@ from function.tuner import tuner_router
 from function.mxlConverter import mxl_router
 from function.db_run import db_run_router
 from fastapi.staticfiles import StaticFiles
+from function.chordprac import chordprac_router
 import os
 
 app = FastAPI()
@@ -29,3 +30,4 @@ app.include_router(compare_router)
 app.include_router(tuner_router)
 app.include_router(mxl_router)
 app.include_router(db_run_router)
+app.include_router(chordprac_router)
