@@ -1,7 +1,8 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File, Form
 import os
 import uuid
 from music21 import converter, interval, pitch
+from function.db import get_db_connection
 
 compare_router = APIRouter()
 
@@ -86,8 +87,12 @@ def compare_midi_files_with_penalty(midi1_path, midi2_path):
     }
 
 @compare_router.post("/compare/")
-async def compare_midi_files(file1: UploadFile = File(...), file2: UploadFile = File(...)):
-    # UUID 사용해서 파일명 충돌 방지
+async def compare_midi_files(
+    user_id: int = Form(...),  # ✅ user_id 추가
+    file1: UploadFile = File(...),
+    file2: UploadFile = File(...)
+):
+    # UUID로 임시 파일 저장
     file1_path = f"temp_{uuid.uuid4()}_{file1.filename}"
     file2_path = f"temp_{uuid.uuid4()}_{file2.filename}"
 
@@ -97,9 +102,44 @@ async def compare_midi_files(file1: UploadFile = File(...), file2: UploadFile = 
     with open(file2_path, "wb") as f:
         f.write(await file2.read())
 
+    # 유사도 비교 (원래 너가 쓰던 비교 함수)
     similarity_result = compare_midi_files_with_penalty(file1_path, file2_path)
 
+    # DB 연결
+    db = get_db_connection()
+    cursor = db.cursor()
+
+    try:
+        # ✅ user_id + file_path 둘 다 조건으로 music_id 찾기
+        cursor.execute(
+            "SELECT music_id FROM Music WHERE user_id = %s AND file_path LIKE %s",
+            (user_id, f"%{file1.filename}%")
+        )
+        music_list = cursor.fetchall()  # ✅ 반드시 fetchall()
+
+        if not music_list:
+            print(f"❌ user_id={user_id} / file={file1.filename} 에 대한 music_id를 찾지 못함")
+        else:
+            for music in music_list:
+                music_id = music[0]
+                cursor.execute("""
+                    INSERT INTO record (music_id, record_file, accuracy, record_date)
+                    VALUES (%s, %s, %s, NOW())
+                """, (music_id, file2.filename, similarity_result["final_similarity"]))
+                print(f"✅ record 테이블 저장 완료: music_id={music_id}, record_file={file2.filename}, accuracy={similarity_result['final_similarity']}")
+
+            db.commit()
+
+    except Exception as e:
+        print(f"❌ record 테이블 저장 실패: {e}")
+
+    finally:
+        cursor.close()
+        db.close()
+
+    # 임시 파일 삭제
     os.remove(file1_path)
     os.remove(file2_path)
 
+    # 결과 반환
     return similarity_result

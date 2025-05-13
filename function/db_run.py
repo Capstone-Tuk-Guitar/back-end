@@ -167,3 +167,34 @@ def delete_music(music_id: int = Query(...)):
     finally:
         cursor.close()
         db.close()
+
+@db_run_router.get("/get-records/{user_id}")
+def get_user_records(user_id: int):
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    try:
+        # ✅ user_id 기준으로 record 조회 (Music 테이블 조인)
+        cursor.execute("""
+            SELECT 
+                r.record_id, 
+                m.title AS music_title,
+                r.record_file,
+                r.accuracy,
+                r.record_date
+            FROM record r
+            JOIN Music m ON r.music_id = m.music_id
+            WHERE m.user_id = %s
+            ORDER BY r.record_date DESC
+        """, (user_id,))
+
+        records = cursor.fetchall()
+        return records
+
+    except Exception as e:
+        print(f"❌ record 조회 실패: {e}")
+        return {"error": str(e)}
+
+    finally:
+        cursor.close()
+        db.close()
