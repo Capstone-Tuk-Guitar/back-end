@@ -43,6 +43,20 @@ def initialize_db():
     )
     """)
 
+    # record 테이블 생성
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS record (
+        record_id INT AUTO_INCREMENT PRIMARY KEY,
+        music_id INT,
+        record_file VARCHAR(255) NOT NULL,
+        accuracy FLOAT,
+        record_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (music_id) REFERENCES Music(music_id) ON DELETE CASCADE
+    )
+    """)
+
+
+
     db.commit()
     cursor.close()
     db.close()
