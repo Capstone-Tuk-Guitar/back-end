@@ -1,194 +1,210 @@
 import numpy as np
-import sounddevice as sd
-import scipy.fftpack as fftpack
 import json
+import sounddevice as sd
+import asyncio
 import time
-from collections import Counter, deque
 
-NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-SAMPLE_RATE = 44100
-BUFFER_SIZE = 2048
-WINDOW_TIME = 0.5
-HISTORY_SECONDS = 1.5
-BEAT_INTERVAL = 0.5
-HPS_HARMONICS = 4  # HPS에서 사용할 고조파 수
+SAMPLE_FREQ = 48000
+WINDOW_TIME = 0.3
+WINDOW_SIZE = int(SAMPLE_FREQ * WINDOW_TIME)
+WINDOW_STEP = int(WINDOW_SIZE // 2)
+NUM_HPS = 5
+POWER_THRESH = 1e-6
+CONCERT_PITCH = 440
+WHITE_NOISE_THRESH = 0.2
 
+DELTA_FREQ = SAMPLE_FREQ / WINDOW_SIZE
+OCTAVE_BANDS = [50, 100, 200, 400, 800, 1600, 3200, 6400, 12800, 25600]
+ALL_NOTES = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]
+HANN_WINDOW = np.hanning(WINDOW_SIZE)
 
-# 주파수 -> 음이름 변환
-def freq_to_note_name(freq):
-    if freq <= 0:
-        return None
-    A4 = 440.0
-    semitones = 12 * np.log2(freq / A4)
-    midi_note = int(round(69 + semitones))
-    note_name = NOTE_NAMES[midi_note % 12]
-    tolerance = 0.5  # 작은 tolerance로 설정
-    for note in NOTE_NAMES:
-        target_freq = A4 * (2 ** ((NOTE_NAMES.index(note) - 9) / 12))
-        if abs(freq - target_freq) <= tolerance:
-            return note
-    return note_name
+with open('chord_notes.json') as f:
+    chord_data = json.load(f)
 
+def find_closest_note_name(pitch):
+    i = int(np.round(np.log2(pitch / CONCERT_PITCH) * 12))
+    note = ALL_NOTES[i % 12]
+    return note
 
-# 코드 데이터 불러오기
-def load_chord_data(path='chord_notes.json'):
-    with open(path, 'r') as f:
-        return json.load(f)
+def detect_top3_chords(detected_notes):
+    detected_notes_set = set(detected_notes)
+    chord_candidates = []
 
+    for root, chords in chord_data.items():
+        for chord_type, data in chords.items():
+            score = 0
+            total_weight = 0
+            matched_notes = 0
+            all_matched = True
+            root_bonus_given = False
 
-# 코드 유사도 계산
-def similarity_score(notes_detected, chord_notes_data):
-    score = 0.0
-    total_weight = 0.0
-    for note_info in chord_notes_data:
-        note = note_info["note"]
-        weight = note_info.get("weight", 1.0)
-        total_weight += weight
-        if note in notes_detected:
-            score += weight
-    return score / total_weight if total_weight > 0 else 0.0
+            for note_info in data["notes"]:
+                note = note_info["note"]
+                weight = note_info.get("weight", 1.0)
+                total_weight += weight
 
+                if note in detected_notes_set:
+                    score += weight
+                    matched_notes += 1
+                    if not root_bonus_given and note == root:
+                        score += 0.12
+                        root_bonus_given = True
+                else:
+                    all_matched = False
 
-# 코드 추정
-def detect_chord_from_notes(notes, chord_data):
-    note_set = set(notes)
-    best_match = ("Unknown", None, 0.0)
-    partial_match_rules = {
-        '5': (0.5, 2), 'maj': (0.6, 2), 'min': (0.6, 2), '7': (0.65, 3),
-        'maj7': (0.65, 3), 'm7': (0.65, 3), 'dim': (0.6, 2), 'dim7': (0.65, 3),
-        'aug': (0.6, 2), 'sus2': (0.6, 2), 'sus4': (0.6, 2), '7sus4': (0.65, 3)
-    }
-    for chord, types in chord_data.items():
-        for chord_type, data in types.items():
-            chord_notes_data = data['notes']
-            chord_note_names = [n["note"] for n in chord_notes_data]
-            matched_notes = note_set.intersection(set(chord_note_names))
-            matched_count = len(matched_notes)
-            min_score, min_notes_required = partial_match_rules.get(chord_type, (0.6, 2))
-            if matched_count >= min_notes_required:
-                score = similarity_score(note_set, chord_notes_data)
-                if score > best_match[2] and score >= min_score:
-                    best_match = (chord, chord_type, score)
-    if best_match[2] > 0:
-        return best_match[0], best_match[1], '추정'
-    return "Unknown", None, None
+            if total_weight == 0:
+                continue
 
+            match_score = score / total_weight
 
-def weighted_note_score(note_history, chord_data):
-    score_counter = Counter()
-    for frame in note_history:
-        for note in frame:
-            for chord in chord_data.values():
-                for chord_type in chord.values():
-                    for note_info in chord_type['notes']:
-                        if note_info['note'] == note:
-                            weight = note_info.get("weight", 1.0)
-                            score_counter[note] += weight
-    return [note for note, _ in score_counter.most_common()]
-
-
-# HPS 적용한 주파수 추출 + 이동평균 적용
-class FrequencyStabilizer:
-    def __init__(self, window_len=5):
-        self.freq_history = deque(maxlen=window_len)
-
-    def smooth(self, freqs):
-        self.freq_history.append(freqs)
-        all_freqs = [f for frame in self.freq_history for f in frame]
-        counts = Counter(all_freqs)
-        most_common = [freq for freq, _ in counts.most_common(6)]
-        return sorted(set(most_common))
-
-
-def extract_dominant_freqs(audio, sample_rate, top_n=6, min_freq=80, max_freq=800):
-    window = np.hanning(len(audio))
-    spectrum = np.abs(fftpack.fft(audio * window))[:len(audio) // 2]
-    freqs = np.fft.fftfreq(len(audio), 1 / sample_rate)[:len(audio) // 2]
-
-    valid_indices = np.where((freqs >= min_freq) & (freqs <= max_freq))
-    spectrum = spectrum[valid_indices]
-    freqs = freqs[valid_indices]
-
-    # HPS 알고리즘 적용
-    hps_spectrum = np.copy(spectrum)
-    for h in range(2, 5):
-        decimated = spectrum[::h]
-        hps_spectrum[:len(decimated)] *= decimated
-
-    # 강한 주파수 탐색
-    threshold = np.max(hps_spectrum) * 0.3  # threshold를 조금 높임
-    strong_indices = np.where(hps_spectrum >= threshold)[0]
-    if len(strong_indices) == 0:
-        return []
-
-    effective_top_n = min(top_n, len(strong_indices))
-    peak_indices = strong_indices[np.argpartition(hps_spectrum[strong_indices], -effective_top_n)[-effective_top_n:]]
-    dominant_freqs = sorted(freqs[peak_indices])
-    return dominant_freqs
-
-
-# 중복 음 제거 및 필터링
-def remove_octave_duplicates(note_list):
-    seen = set()
-    filtered_notes = []
-    for note in note_list:
-        if note and note not in seen:
-            seen.add(note)
-            filtered_notes.append(note)
-    return filtered_notes
-
-
-def remove_rare_notes(note_list, history_deque, min_count=2):
-    all_notes = [n for sub in history_deque for n in sub]
-    valid_notes = [n for n in note_list if all_notes.count(n) >= min_count]
-    return valid_notes
-
-
-# 코드 감지기 클래스
-class ChordDetector:
-    def __init__(self):
-        self.chord_data = load_chord_data()
-        self.note_history = deque(maxlen=int(HISTORY_SECONDS / WINDOW_TIME))
-        self.last_beat_time = time.time()
-        self.previous_chord = None
-        self.chord_repeat_count = 0
-        self.confirmed_chord = None
-        self.freq_smoother = FrequencyStabilizer(window_len=3)
-
-    def process(self, audio_chunk):
-        # 주파수 추출
-        raw_freqs = extract_dominant_freqs(audio_chunk, SAMPLE_RATE)
-
-        # 주파수 및 음표 출력
-        print(f"[주파수] {np.round(raw_freqs, 2)}")
-
-        smoothed_freqs = self.freq_smoother.smooth(raw_freqs)
-
-        # 주파수 기반 음표 변환
-        raw_notes = [freq_to_note_name(f) for f in smoothed_freqs]
-        filtered_notes = remove_octave_duplicates(raw_notes)
-
-        self.note_history.append(filtered_notes)
-        smoothed_notes = remove_rare_notes(filtered_notes, self.note_history)
-
-        # 가중치 기반 주요 노트 계산
-        most_common_notes = weighted_note_score(self.note_history, self.chord_data)[:5]
-
-        # 코드 추정
-        chord = detect_chord_from_notes(most_common_notes, self.chord_data)
-
-        # 주기마다 코드 감지
-        now = time.time()
-        if now - self.last_beat_time >= BEAT_INTERVAL:
-            self.last_beat_time = now
-            if chord[:2] == self.previous_chord:
-                self.chord_repeat_count += 1
+            if chord_type in ["sus2", "sus4", "7sus4", "dim", "dim7", "aug"]:
+                if matched_notes < 3:
+                    continue
+                elif matched_notes == 3:
+                    match_score += 0.1
+                else:
+                    match_score += 0.03
+            elif chord_type == "5":
+                if matched_notes < 2:
+                    continue
+                required_notes = set([n["note"] for n in data["notes"]])
+                if not required_notes.issubset(detected_notes_set):
+                    continue
+                match_score -= 0.1
             else:
-                self.chord_repeat_count = 1
-            self.previous_chord = chord[:2]
-            if self.chord_repeat_count >= 2:
-                if self.confirmed_chord != chord[:2]:
-                    self.confirmed_chord = chord[:2]
-                    print(f"[코드 전환] {self.confirmed_chord[0]} {self.confirmed_chord[1]}")
+                if matched_notes < 2:
+                    continue
+                third_note = next((n["note"] for n in data["notes"] if n.get("role") == "third"), None)
+                if third_note and third_note not in detected_notes_set:
+                    continue
 
-        return smoothed_notes, most_common_notes, chord
+            if all_matched:
+                match_score += 0.3
+
+            chord_name = f"{root} {chord_type}"
+            chord_candidates.append((chord_name, match_score))
+
+    chord_candidates.sort(key=lambda x: x[1], reverse=True)
+    return chord_candidates[:3]
+
+
+class AudioAnalyzer:
+    def __init__(self, websocket):
+        self.websocket = websocket
+        self.window_samples = np.zeros(WINDOW_SIZE)
+        self.note_history = []
+        self.running = False
+        self.loop = asyncio.get_event_loop()
+
+    def stop(self):
+        self.running = False
+
+    def callback(self, indata, frames, time_info, status):
+        if not self.running:
+            return
+
+        if status:
+            return
+
+        if any(indata):
+            # 새로운 오디오 데이터를 기존 윈도우 끝에 붙이고 앞부분 잘라서 유지
+            self.window_samples = np.concatenate((self.window_samples, indata[:, 0]))
+            self.window_samples = self.window_samples[len(indata[:, 0]):]
+
+            # 비동기 분석 함수 실행 (이벤트 루프에 안전하게 등록)
+            asyncio.run_coroutine_threadsafe(self.process_audio(), self.loop)
+        else:
+            print("no input")
+
+    async def process_audio(self):
+        signal_power = (np.linalg.norm(self.window_samples, ord=2) ** 2) / len(self.window_samples)
+        if signal_power < POWER_THRESH:
+            if self.websocket:
+                try:
+                    await self.websocket.send_json({
+                        "top3_chords": [],
+                        "primary": None,
+                        "status": "listening..."
+                    })
+                except Exception as e:
+                    print(f"음 감지 실패: {e}")
+            return
+
+        hann_samples = self.window_samples * HANN_WINDOW
+        magnitude_spec = abs(np.fft.rfft(hann_samples))
+        freqs = np.fft.rfftfreq(len(hann_samples), 1 / SAMPLE_FREQ)
+
+        # 62Hz 이하 주파수는 제거
+        for i in range(int(62 / DELTA_FREQ)):
+            magnitude_spec[i] = 0
+
+        # 옥타브 밴드별로 평균 에너지 구해 노이즈 필터링
+        for j in range(len(OCTAVE_BANDS) - 1):
+            ind_start = int(OCTAVE_BANDS[j] / DELTA_FREQ)
+            ind_end = int(OCTAVE_BANDS[j + 1] / DELTA_FREQ)
+            ind_end = min(ind_end, len(magnitude_spec))
+            avg_energy = (np.linalg.norm(magnitude_spec[ind_start:ind_end], ord=2) ** 2) / (ind_end - ind_start)
+            avg_energy = avg_energy ** 0.5
+            for i in range(ind_start, ind_end):
+                if magnitude_spec[i] < WHITE_NOISE_THRESH * avg_energy:
+                    magnitude_spec[i] = 0
+
+        peak_threshold = np.max(magnitude_spec) * 0.3
+        peak_indices = [i for i in magnitude_spec.argsort()[::-1] if magnitude_spec[i] > peak_threshold]
+        peak_freqs = []
+        for i in peak_indices:
+            freq = freqs[i]
+            if freq > 50:
+                peak_freqs.append(freq)
+            if len(peak_freqs) >= 6:
+                break
+
+        detected_notes = list(set(find_closest_note_name(f) for f in peak_freqs))
+
+        if len(detected_notes) <= 1:
+            return
+
+        self.note_history.append(detected_notes)
+        if len(self.note_history) > 4:
+            self.note_history.pop(0)
+
+        all_notes = [note for sublist in self.note_history for note in sublist]
+        note_counts = {note: all_notes.count(note) for note in set(all_notes)}
+        stable_notes = [note for note, count in note_counts.items() if count >= 2]
+
+        if stable_notes:
+            top3 = detect_top3_chords(stable_notes)
+
+            if top3 and self.websocket:
+                top3_names = [name for name, score in top3]
+                primary = top3_names[0] if top3_names else None
+                data = {
+                    "top3_chords": top3_names,
+                    "primary": primary
+                }
+                try:
+                    await self.websocket.send_json(data)
+                except Exception as e:
+                    print(f"Top-3 데이터 전송 실패: {e}")
+        else:
+            print("안정된 음 기다리는 중...")
+
+    def start(self):
+        self.running = True
+        try:
+            with sd.InputStream(
+                channels=1,
+                samplerate=SAMPLE_FREQ,
+                blocksize=WINDOW_STEP,
+                callback=self.callback,
+            ):
+                while self.running:
+                    time.sleep(0.1)
+        except Exception as e:
+            if self.websocket:
+                # 현재 이벤트 루프에 안전하게 coroutine 실행 예약
+                asyncio.run_coroutine_threadsafe(
+                    self.websocket.send_json({"error": str(e)}),
+                    self.loop
+                )
+            print(f"Audio stream error: {e}")

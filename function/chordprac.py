@@ -1,72 +1,44 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 import asyncio
-import numpy as np
-import sounddevice as sd
-from chord_audio.chord_detector import ChordDetector, SAMPLE_RATE, BUFFER_SIZE, WINDOW_TIME
+from chord_audio.chord_detector import AudioAnalyzer
 
 chordprac_router = APIRouter()
-detector = ChordDetector()
 
 @chordprac_router.websocket("/ws/chordprac")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
-    print("WebSocket connected")
+    print("🎸 WebSocket connection accepted")
 
-    stop_event = asyncio.Event()
-    loop = asyncio.get_event_loop()
-
-    def audio_callback(indata, frames, time_info, status):
-        if stop_event.is_set():
-            return
-
-        try:
-            audio = indata[:, 0]
-            freqs, notes, chord = detector.process(audio)
-
-            result = {
-                "frequencies": np.round(freqs, 2).tolist() if isinstance(freqs, np.ndarray) else [],
-                "notes": notes if notes else [],
-                "chord": {
-                    "root": chord[0] if chord else "",
-                    "type": chord[1] if chord else "",
-                    "certainty": chord[2] if chord else 0.0
-                }
-            }
-
-            # websocket이 살아있을 때만 전송
-            if not stop_event.is_set():
-                future = asyncio.run_coroutine_threadsafe(websocket.send_json(result), loop)
-                future.result()
-        except Exception as e:
-            print("Error in audio_callback:", e)
-            stop_event.set()
-
-    async def audio_stream_loop():
-        try:
-            with sd.InputStream(
-                callback=audio_callback,
-                channels=1,
-                samplerate=SAMPLE_RATE,
-                blocksize=BUFFER_SIZE,
-            ):
-                while not stop_event.is_set():
-                    await asyncio.sleep(WINDOW_TIME)
-        except Exception as e:
-            print("Stream error:", e)
-            stop_event.set()
-
-    # ✅ audio stream은 백그라운드 Task로 실행
-    audio_task = asyncio.create_task(audio_stream_loop())
+    analyzer = AudioAnalyzer(websocket)
+    analyze_task = None
 
     try:
-        # ✅ 웹소켓이 닫힐 때까지 기다림
         while True:
-            await websocket.receive_text()  # 아무 메시지 안 보내도 닫히면 예외 발생함
+            msg = await websocket.receive_text()
+            if msg == "start":
+                # 이미 실행 중이면 다시 시작하지 않음
+                if analyze_task is None or analyze_task.done():
+                    analyze_task = asyncio.create_task(asyncio.to_thread(analyzer.start))
+                else:
+                    print("음 감지 이미 켜짐...")
+
+            elif msg == "stop":
+                if analyze_task and not analyze_task.done():
+                    analyzer.stop()  # 내부 플래그로 stop 신호 전달
+                    try:
+                        await analyze_task  # 작업 완료까지 대기
+                    except asyncio.CancelledError:
+                        print("asyncio 취소 에러...")
+                    analyze_task = None
+                else:
+                    print("음 감지 이미 멈춤")
+
     except WebSocketDisconnect:
-        print("WebSocket disconnected by client.")
-    except Exception as e:
-        print("Receive loop error:", e)
-    finally:
-        stop_event.set()
-        await audio_task  # audio 루프 종료 대기
-        print("Cleanup done.")
+        print("웹소켓 연결 끊김...")
+        if analyze_task and not analyze_task.done():
+            analyzer.stop()
+            try:
+                await analyze_task
+            except asyncio.CancelledError:
+                print("asyncio 취소 에러...")
+        print("음감지 정지...")
