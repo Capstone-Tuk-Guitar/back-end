@@ -138,7 +138,7 @@ compare_detail_router = APIRouter()
 # 특징 추출
 def extract_music21_features(file_path):
     score = converter.parse(file_path)
-    flat_notes = score.parts[0].flat.notes
+    flat_notes = score.parts[0].flatten().notes
 
     pitches = []
     rhythms = []
