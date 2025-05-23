@@ -21,7 +21,7 @@ def extract_notes(midi_path, tolerance=2):
     """MIDI 파일에서 음표(Pitch) 목록을 추출 (오차 적용)"""
     midi = converter.parse(midi_path)
     notes = []
-    for element in midi.flat.notes:
+    for element in midi.flatten().notes:
         if element.isNote:
             notes.append(str(element.pitch))
     return normalize_pitches(notes, tolerance)
@@ -29,13 +29,13 @@ def extract_notes(midi_path, tolerance=2):
 def extract_rhythms(midi_path, tolerance=0.3):
     """MIDI 파일에서 리듬(Duration) 목록을 추출 (오차 적용)"""
     midi = converter.parse(midi_path)
-    rhythms = [n.duration.quarterLength for n in midi.flat.notes]
+    rhythms = [n.duration.quarterLength for n in midi.flatten().notes]
     return [round(rhythm / tolerance) * tolerance for rhythm in rhythms]
 
 def extract_intervals(midi_path, tolerance=3):
     """MIDI 파일에서 멜로디 패턴(Interval) 목록을 추출 (오차 적용)"""
     midi = converter.parse(midi_path)
-    notes = [n.pitch for n in midi.flat.notes if n.isNote]
+    notes = [n.pitch for n in midi.flatten().notes if n.isNote]
 
     raw_intervals = []
     for i in range(len(notes) - 1):
@@ -111,14 +111,18 @@ async def compare_midi_files(
 
     try:
         # ✅ user_id + file_path 둘 다 조건으로 music_id 찾기
+        file1.filename = os.path.splitext(file1.filename)[0]
+        filename_only = os.path.basename(file1.filename)
+        print(file1_path, user_id)
         cursor.execute(
             "SELECT music_id FROM Music WHERE user_id = %s AND file_path LIKE %s",
-            (user_id, f"%{file1.filename}%")
+            (user_id, f"%{filename_only}%")
         )
         music_list = cursor.fetchall()  # ✅ 반드시 fetchall()
+        print(music_list)
 
         if not music_list:
-            print(f"❌ user_id={user_id} / file={file1.filename} 에 대한 music_id를 찾지 못함")
+            print(f"❌ user_id={user_id} / file={filename_only} 에 대한 music_id를 찾지 못함")
         else:
             for music in music_list:
                 music_id = music[0]
