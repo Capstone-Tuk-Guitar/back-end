@@ -113,13 +113,11 @@ async def compare_midi_files(
         # ✅ user_id + file_path 둘 다 조건으로 music_id 찾기
         file1.filename = os.path.splitext(file1.filename)[0]
         filename_only = os.path.basename(file1.filename)
-        print(file1_path, user_id)
         cursor.execute(
             "SELECT music_id FROM Music WHERE user_id = %s AND file_path LIKE %s",
             (user_id, f"%{filename_only}%")
         )
         music_list = cursor.fetchall()  # ✅ 반드시 fetchall()
-        print(music_list)
 
         if not music_list:
             print(f"❌ user_id={user_id} / file={filename_only} 에 대한 music_id를 찾지 못함")
