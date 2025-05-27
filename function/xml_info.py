@@ -1,20 +1,19 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, UploadFile, File, HTTPException
 from music21 import converter, harmony, tempo
-import os
+import tempfile
 
 xml_info_router = APIRouter()
 
-@xml_info_router.get("/xml_info/{music_id}")
-async def get_chord_timing(music_id: int):
-    file_path = r"C:\Download\takajii_-_rain intro.xml"  # 본인 XML 파일 경로
-
-    if not os.path.exists(file_path):
-        raise HTTPException(status_code=404, detail="XML file not found")
-
+@xml_info_router.post("/xml_info/")
+async def get_chord_timing(file: UploadFile = File(...)):
     try:
-        score = converter.parse(file_path)
+        # 임시파일에 저장
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".xml") as tmp:
+            tmp.write(await file.read())
+            tmp_path = tmp.name
 
-        # 템포 추출 (없으면 기본값 76)
+        score = converter.parse(tmp_path)
+
         bpm = 76
         for t in score.recurse().getElementsByClass(tempo.MetronomeMark):
             if t.number:
@@ -35,25 +34,17 @@ async def get_chord_timing(music_id: int):
             "augmented": "aug",
             "suspended-second": "sus2",
             "suspended-fourth": "sus4",
-            "power": "5",
-            "fifth": "5"
+            "power": "5", "fifth": "5"
         }
 
         chords = []
         for el in score.recurse():
             if isinstance(el, harmony.ChordSymbol):
-                # 코드 이름 직접 생성
                 root = el.root().name if el.root() else "Unknown"
                 kind_raw = el.chordKind
+                kind_mapped = kind_map.get(kind_raw, kind_raw)
+                chord_name = f"{root} {kind_mapped}".strip()
 
-                # 특별 처리: 7sus4
-                if kind_raw in ["dominant", "dominant-seventh"] and el.chordKind == "suspended-fourth":
-                    chord_name = f"{root} 7sus4"
-                else:
-                    kind_mapped = kind_map.get(kind_raw, kind_raw)
-                    chord_name = f"{root} {kind_mapped}".strip()
-
-                # 시간 계산
                 measure_num = el.measureNumber
                 offset_in_measure = float(el.offset)
                 beats_from_start = ((measure_num - 1) * 4) + offset_in_measure
