@@ -26,7 +26,7 @@ def find_closest_note_name(pitch):
     note = ALL_NOTES[i % 12]
     return note
 
-def detect_top3_chords(detected_notes):
+def detect_top4_chords(detected_notes):
     detected_notes_set = set(detected_notes)
     chord_candidates = []
 
@@ -85,7 +85,7 @@ def detect_top3_chords(detected_notes):
             chord_candidates.append((chord_name, match_score))
 
     chord_candidates.sort(key=lambda x: x[1], reverse=True)
-    return chord_candidates[:3]
+    return chord_candidates[:4]
 
 
 class AudioAnalyzer:
@@ -122,7 +122,7 @@ class AudioAnalyzer:
             if self.websocket:
                 try:
                     await self.websocket.send_json({
-                        "top3_chords": [],
+                        "top4_chords": [],
                         "primary": None,
                         "status": "listening..."
                     })
@@ -173,19 +173,19 @@ class AudioAnalyzer:
         stable_notes = [note for note, count in note_counts.items() if count >= 2]
 
         if stable_notes:
-            top3 = detect_top3_chords(stable_notes)
+            top4 = detect_top4_chords(stable_notes)
 
-            if top3 and self.websocket:
-                top3_names = [name for name, score in top3]
-                primary = top3_names[0] if top3_names else None
+            if top4 and self.websocket:
+                top4_names = [name for name, score in top4]
+                primary = top4_names[0] if top4_names else None
                 data = {
-                    "top3_chords": top3_names,
+                    "top4_chords": top4_names,
                     "primary": primary
                 }
                 try:
                     await self.websocket.send_json(data)
                 except Exception as e:
-                    print(f"Top-3 데이터 전송 실패: {e}")
+                    print(f"Top-4 데이터 전송 실패: {e}")
         else:
             print("안정된 음 기다리는 중...")
 
