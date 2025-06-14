@@ -9,7 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from function.compare_detail import compare_detail_router
 from function.chordprac import chordprac_router
 from function.xml_info import xml_info_router
-from function.record import record_router
+from function.music_record import music_record_router
 import os
 
 app = FastAPI()
@@ -34,4 +34,4 @@ app.include_router(db_run_router)
 app.include_router(compare_detail_router)
 app.include_router(chordprac_router)
 app.include_router(xml_info_router)
-app.include_router(record_router)
+app.include_router(music_record_router)
