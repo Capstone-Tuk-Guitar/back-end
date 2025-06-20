@@ -54,3 +54,4 @@ async def upload_record(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=f"FFmpeg 변환 실패: {e}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"녹음 파일 저장 실패: {e}")
+

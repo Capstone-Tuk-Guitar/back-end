@@ -20,7 +20,9 @@ SERVER_PORT = os.getenv('SERVER_PORT', '8000')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_DIR = os.path.join(BASE_DIR, "..", "uploads", "music")
+RECORD_DIR = os.path.join(BASE_DIR, "..", "uploads", "record")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
+os.makedirs(RECORD_DIR, exist_ok=True)
 
 
 # 사용자 등록

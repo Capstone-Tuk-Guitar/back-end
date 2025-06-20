@@ -96,5 +96,3 @@ async def compare_midi_detail(file1: UploadFile = File(...), file2: UploadFile =
         "리듬 차이": rhythm_diff_list,
         "멜로디 간격 차이": interval_diff_list
     }
-
-

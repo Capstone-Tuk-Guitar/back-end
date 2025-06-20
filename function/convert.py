@@ -22,7 +22,7 @@ async def get_songs():
     songs = [{"title": f, "artist": "Unknown", "difficulty": "Custom", "filename": f} for f in files]
     return songs
 
-# 🟢 음악 업로드 API
+# 음악 업로드 API
 @convert_router.post("/upload/")
 async def upload_song(file: UploadFile):
     filename = file.filename if file.filename.endswith(".mp3") else f"{file.filename}.mp3"
@@ -42,7 +42,7 @@ async def upload_song(file: UploadFile):
 
     return {"title": filename, "artist": "Unknown", "filename": filename}
 
-# 🟢 음악 삭제 API
+# 음악 삭제 API
 @convert_router.delete("/delete/")
 async def delete_song(title: str):
     file_path = os.path.join(UPLOAD_DIR, title)
@@ -51,7 +51,7 @@ async def delete_song(title: str):
         return {"message": "Deleted"}
     return {"error": "파일을 찾을 수 없습니다."}
 
-# 🟢 음악 파일 제공 API
+# 음악 파일 제공 API
 @convert_router.get("/uploads/{filename}")
 async def get_song_file(filename: str):
     file_path = os.path.join(UPLOAD_DIR, filename)
@@ -59,7 +59,7 @@ async def get_song_file(filename: str):
         return FileResponse(file_path, media_type="audio/mpeg", filename=filename)
     return {"error": "파일을 찾을 수 없습니다."}
 
-# 🟢 음악 변환 API (Klangio)
+# 음악 변환 API (Klangio)
 @convert_router.post("/convert/transcription/")
 async def transcription(
         model: str = Form(...),
@@ -96,7 +96,7 @@ async def transcription(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
-# 🟢 변환된 파일 다운로드 API
+# 변환된 파일 다운로드 API
 @convert_router.get("/convert/download/{job_id}/{output_type}")
 async def download_file(job_id: str, output_type: str):
     try:
