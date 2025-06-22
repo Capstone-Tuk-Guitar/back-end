@@ -10,10 +10,7 @@ from function.compare_detail import compare_detail_router
 from function.chordprac import chordprac_router
 from function.xml_info import xml_info_router
 from function.music_record import music_record_router
-<<<<<<< HEAD
-=======
 from function.recording import recording_router
->>>>>>> 783eef1276980bff3e0c246c83a9ec1b3a740843
 import os
 
 app = FastAPI()
@@ -27,8 +24,11 @@ app.add_middleware(
 )
 UPLOAD_DIR = os.path.join(os.path.dirname(__file__), "uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
-
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
+
+RECORD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "uploads", "record"))
+os.makedirs(RECORD_DIR, exist_ok=True)
+app.mount("/static/record-files",StaticFiles(directory=RECORD_DIR),name="static-record-files")
 
 app.include_router(convert_router)
 app.include_router(compare_router)

@@ -4,24 +4,25 @@ import os
 
 recording_router = APIRouter()
 
-# record 폴더 경로 설정
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-RECORD_DIR = os.path.join(BASE_DIR, "..", "record")
-os.makedirs(RECORD_DIR, exist_ok=True)
+BASE_DIR = os.path.dirname(__file__)
+RECORD_FOLDER = os.path.join(BASE_DIR, "..", "uploads", "record")
+os.makedirs(RECORD_FOLDER, exist_ok=True)
 
-# 녹음 파일 목록 (.webm)
-@recording_router.get("/record-files")
-def list_record_files():
+
+@recording_router.get("/record-files/")
+async def list_recordings():
     try:
-        files = [f for f in os.listdir(RECORD_DIR) if f.endswith(".webm")]
-        return {"files": files}
+        files = os.listdir(RECORD_FOLDER)
+        mp3_files = [f for f in files if f.lower().endswith(".mp3")]
+        mp3_files.sort(reverse=True)  # 최신순 정렬
+        return {"recording": mp3_files}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"녹음 목록 조회 실패: {str(e)}")
 
-# 특정 파일 스트리밍 또는 다운로드
+
 @recording_router.get("/record-files/{filename}")
-def get_record_file(filename: str):
-    file_path = os.path.join(RECORD_DIR, filename)
-    if os.path.exists(file_path):
-        return FileResponse(file_path, media_type="audio/webm", filename=filename)
-    raise HTTPException(status_code=404, detail="파일을 찾을 수 없습니다.")
+async def get_recording(filename: str):
+    file_path = os.path.join(RECORD_FOLDER, filename)
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="파일을 찾을 수 없습니다.")
+    return FileResponse(file_path, media_type="audio/mpeg", filename=filename)
