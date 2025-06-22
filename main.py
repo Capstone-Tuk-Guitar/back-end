@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from function.convert import convert_router
 from function.compare import compare_router
 from function.tuner import tuner_router
-from function.mxlConverter import mxl_router
 from function.db_run import db_run_router
 from fastapi.staticfiles import StaticFiles
 from function.compare_detail import compare_detail_router
@@ -33,7 +32,6 @@ app.mount("/static/record-files",StaticFiles(directory=RECORD_DIR),name="static-
 app.include_router(convert_router)
 app.include_router(compare_router)
 app.include_router(tuner_router)
-app.include_router(mxl_router)
 app.include_router(db_run_router)
 app.include_router(compare_detail_router)
 app.include_router(chordprac_router)
