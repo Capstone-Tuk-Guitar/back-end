@@ -80,6 +80,9 @@ def detect_top4_chords(detected_notes):
 
             if all_matched:
                 match_score += 0.3
+            #E minor 보너스 + E major보너스 추가 예정
+            if root == "E" and chord_type == "minor"and matched_notes >= 2:
+                match_score += 0.08
 
             chord_name = f"{root} {chord_type}"
             chord_candidates.append((chord_name, match_score))
