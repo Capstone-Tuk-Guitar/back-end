@@ -1,7 +1,7 @@
 from fastapi import APIRouter, UploadFile, File, Form
 import os
 import uuid
-from music21 import converter, interval, pitch
+from music21 import converter, pitch
 from function.db import get_db_connection
 
 compare_router = APIRouter()
@@ -32,22 +32,6 @@ def extract_rhythms(midi_path, tolerance=0.3):
     rhythms = [n.duration.quarterLength for n in midi.flatten().notes]
     return [round(rhythm / tolerance) * tolerance for rhythm in rhythms]
 
-def extract_intervals(midi_path, tolerance=3):
-    """MIDI 파일에서 멜로디 패턴(Interval) 목록을 추출 (오차 적용)"""
-    midi = converter.parse(midi_path)
-    notes = [n.pitch for n in midi.flatten().notes if n.isNote]
-
-    raw_intervals = []
-    for i in range(len(notes) - 1):
-        try:
-            iv = interval.Interval(notes[i], notes[i + 1])
-            raw_intervals.append(iv.semitones)
-        except:
-            continue
-
-    normalized_intervals = [round(i / tolerance) * tolerance for i in raw_intervals]
-    return normalized_intervals
-
 def calculate_penalty_score(list1, list2, tolerance):
     """100점 시작 후, tolerance 밖일 때마다 1점 감점"""
     min_len = min(len(list1), len(list2))
@@ -71,18 +55,15 @@ def compare_midi_files_with_penalty(midi1_path, midi2_path):
     """MIDI 파일 비교"""
     notes1, notes2 = extract_notes(midi1_path), extract_notes(midi2_path)
     rhythms1, rhythms2 = extract_rhythms(midi1_path), extract_rhythms(midi2_path)
-    intervals1, intervals2 = extract_intervals(midi1_path), extract_intervals(midi2_path)
 
     pitch_similarity = calculate_penalty_score(notes1, notes2, tolerance=2) #한 음 차이 허용
     rhythm_similarity = calculate_penalty_score(rhythms1, rhythms2, tolerance=0.5)
-    interval_similarity = calculate_penalty_score(intervals1, intervals2, tolerance=2)
 
-    final_similarity = (pitch_similarity * 0.4) + (rhythm_similarity * 0.5) + (interval_similarity * 0.1)
+    final_similarity = (pitch_similarity * 0.5) + (rhythm_similarity * 0.5)
 
     return {
         "pitch_similarity": round(pitch_similarity, 3),
         "rhythm_similarity": round(rhythm_similarity, 3),
-        "interval_similarity": round(interval_similarity, 3),
         "final_similarity": round(final_similarity, 3)
     }
 
